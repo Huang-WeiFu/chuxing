@@ -37,9 +37,28 @@ struct SeqTables build() {
 
 // 新增指定位置元素
 void insertPtr(struct SeqTables *tables, int i, char e) {
-    if (i > tables->length) {
+//    插入位置过小则错误
+    if (i < 0) {
         exit(-1);
     }
+    if (i > tables->length - 1) {
+//        插入位置过大则扩容
+        tables->ch = (char *) malloc(sizeof(struct SeqTables) * MAX_TABLE_LENGTH);
+        if (!tables->ch) {
+            exit(-1);
+        }
+        tables->length = tables->length + MAX_TABLE_LENGTH;
+    }
+
+//    判断当前表剩余长度，过小则扩容
+    if (tables->length - tables->size == 0) {
+        tables->ch = (char *) malloc(sizeof(struct SeqTables) * MAX_TABLE_LENGTH);
+        if (!tables->ch) {
+            exit(-1);
+        }
+        tables->length = tables->length + MAX_TABLE_LENGTH;
+    }
+
     for (int j = tables->size; j > i; j--) {
         tables->ch[j] = tables->ch[j - 1];
     }
@@ -49,7 +68,8 @@ void insertPtr(struct SeqTables *tables, int i, char e) {
 
 // 删除指定位置元素
 char delSeqTableElePtr(struct SeqTables *tables, int i) {
-    if (i > tables->size) {
+//    数组下标从0开始，表大小在非零时会比尾结点下标大1
+    if (i > tables->size - 1 || i < 0) {
         exit(-1);
     }
     char result = tables->ch[i];
@@ -62,7 +82,7 @@ char delSeqTableElePtr(struct SeqTables *tables, int i) {
 
 // 修改某位置元素
 char editSeqTableElePtr(struct SeqTables *tables, int i, char e) {
-    if (i > tables->size) {
+    if (i > tables->size - 1 || i < 0) {
         exit(-1);
     }
     char result = tables->ch[i];
@@ -72,7 +92,7 @@ char editSeqTableElePtr(struct SeqTables *tables, int i, char e) {
 
 // 查询指定位置元素
 char getSeqTableElePtr(struct SeqTables *tables, int i) {
-    if (i > tables->size) {
+    if (i > tables->size - 1 || i < 0) {
         exit(-1);
     }
     return tables->ch[i];
@@ -87,7 +107,7 @@ void genAlphabetPtr(struct SeqTables *tables) {
 // ===================================recommend===================================
 
 void insert(struct SeqTables tables, int i, char e) {
-    if (i > tables.length) {
+    if (i > tables.length || i < 0) {
         exit(-1);
     }
     for (int j = tables.size; j > i; j--) {
@@ -98,7 +118,7 @@ void insert(struct SeqTables tables, int i, char e) {
 
 
 char getSeqTableEle(struct SeqTables tables, int i) {
-    if (i > tables.size) {
+    if (i > tables.size || i < 0) {
         exit(-1);
     }
     return tables.ch[i];
@@ -147,21 +167,23 @@ struct SeqTables *buildPtr() {
 int main() {
 //    非指针
     struct SeqTables table1 = build();
-    getAlphabet(table1);
-    printf("非指针方法获取字母表：%s\n", table1.ch);
-
-//    指针
-    struct SeqTables table2 = build();
-
-    genAlphabetPtr(&table2);
-
-    printf("指针方法获取字母表：%s ,%d\n", table2.ch,table2.size);
-    printf("指针方法获取指定位置元素%c\n", getSeqTableElePtr(&table2, 3));
-
-    printf("指针方法修改指定位置元素%c\n", editSeqTableElePtr(&table2, 3,'a'));
-    printf("指针方法修改指定位置元素字母表剩余内容%s,%d\n", table2.ch, table2.size);
-
-    printf("指针方法删除指定位置元素%c\n", delSeqTableElePtr(&table2, 4));
-    printf("指针方法删除后字母表剩余内容%s,%d\n", table2.ch, table2.size);
+//    getAlphabet(table1);
+//    printf("非指针方法获取字母表：%s\n", table1.ch);
+//
+////    指针
+//    struct SeqTables table2 = build();
+//
+//    genAlphabetPtr(&table2);
+//
+//    printf("指针方法获取字母表：%s ,%d\n", table2.ch, table2.size);
+//    printf("指针方法获取指定位置元素%c\n", getSeqTableElePtr(&table2, 3));
+//
+//    printf("指针方法修改指定位置元素%c\n", editSeqTableElePtr(&table2, 3, 'a'));
+//    printf("指针方法修改指定位置元素字母表剩余内容%s,%d\n", table2.ch, table2.size);
+//
+//    printf("指针方法删除指定位置元素%c\n", delSeqTableElePtr(&table2, 4));
+//    printf("指针方法删除后字母表剩余内容%s,%d\n", table2.ch, table2.size);
+    genAlphabetPtr(&table1);
+    insertPtr(&table1, 23, 'f');
 
 }
