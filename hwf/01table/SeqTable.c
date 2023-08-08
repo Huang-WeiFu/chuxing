@@ -167,22 +167,22 @@ struct SeqTables *buildPtr() {
 int main() {
 //    非指针
     struct SeqTables table1 = build();
-//    getAlphabet(table1);
-//    printf("非指针方法获取字母表：%s\n", table1.ch);
-//
-////    指针
-//    struct SeqTables table2 = build();
-//
-//    genAlphabetPtr(&table2);
-//
-//    printf("指针方法获取字母表：%s ,%d\n", table2.ch, table2.size);
-//    printf("指针方法获取指定位置元素%c\n", getSeqTableElePtr(&table2, 3));
-//
-//    printf("指针方法修改指定位置元素%c\n", editSeqTableElePtr(&table2, 3, 'a'));
-//    printf("指针方法修改指定位置元素字母表剩余内容%s,%d\n", table2.ch, table2.size);
-//
-//    printf("指针方法删除指定位置元素%c\n", delSeqTableElePtr(&table2, 4));
-//    printf("指针方法删除后字母表剩余内容%s,%d\n", table2.ch, table2.size);
+    getAlphabet(table1);
+    printf("非指针方法获取字母表：%s\n", table1.ch);
+
+//    指针
+    struct SeqTables table2 = build();
+
+    genAlphabetPtr(&table2);
+
+    printf("指针方法获取字母表：%s ,%d\n", table2.ch, table2.size);
+    printf("指针方法获取指定位置元素%c\n", getSeqTableElePtr(&table2, 3));
+
+    printf("指针方法修改指定位置元素%c\n", editSeqTableElePtr(&table2, 3, 'a'));
+    printf("指针方法修改指定位置元素字母表剩余内容%s,%d\n", table2.ch, table2.size);
+
+    printf("指针方法删除指定位置元素%c\n", delSeqTableElePtr(&table2, 4));
+    printf("指针方法删除后字母表剩余内容%s,%d\n", table2.ch, table2.size);
     genAlphabetPtr(&table1);
     insertPtr(&table1, 23, 'f');
 
