@@ -55,7 +55,31 @@ int insertLinkListElePtr(struct LNode *node, int i, char e) {
 }
 
 // 删除元素于指定位置
-char delLinkListElePtr(struct LNode *node, int i) {}
+char delLinkListElePtr(struct LNode *node, int i, char e) {
+    // 临时指针指向头结点
+    struct LNode *p = node;
+    int count = 1;
+    // 寻找第i个节点，并让p指向其前驱
+    while (p->next && count < i) {
+        p = p->next;
+        ++count;
+    }
+    // 释放位置不合理，返回个空值
+    if (!(p->next) || count > i) {
+        return e;
+    }
+    /**
+     * 建立一个临时指针指向要删除的节点
+     * 让p节点指向要删除节点的下一节点
+     * p节点的值取出用于返回
+     * 释放临时节点的空间
+     */
+    struct LNode *temp = p->next;
+    p->next = temp->next;
+    e = p->ch;
+    free(temp);
+    return e;
+}
 
 // 修改元素于指定位置
 char editLinkListElePtr(struct LNode *node, int i, char e) {}
