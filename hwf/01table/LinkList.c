@@ -23,7 +23,36 @@ struct LNode build(struct LNode *head) {
 }
 
 // 新增元素于指定位置
-void insertLinkListElePtr(struct LNode *node, int i, char e) {}
+int insertLinkListElePtr(struct LNode *node, int i, char e) {
+    // 临时指针指向头结点
+    struct LNode *p = node;
+    int count = 1;
+    /**
+     * 临时节点不为空并且计数器的数值小于要插入位置的数值
+     * 循环继续跳到下一节点
+     */
+    while (p && count < i) {
+        p = p->next;
+        ++count;
+    }
+    /**
+     * i的位置小于1或者是i大于表长了
+     */
+    if (!p || count > i) {
+        return -1;
+    }
+    /**
+     * 符合新增节点的条件
+     * 从内存中分配一个节点的空间
+     * 将值赋予该节点，该节点指向原节点的下一节点
+     * 原节点再指向该节点，形成通路
+     */
+    struct LNode *newNode = malloc(sizeof(struct LNode));
+    newNode->ch = e;
+    newNode->next = p->next;
+    p->next = newNode;
+    return 1;
+}
 
 // 删除元素于指定位置
 char delLinkListElePtr(struct LNode *node, int i) {}
